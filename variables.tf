@@ -1,3 +1,33 @@
+variable "gateway_address" {
+  description = "Public IP address of the Local Network Gateway"
+  type        = string
+}
+
+variable "address_space" {
+  description = "List of CIDR blocks representing the on-premise address space"
+  type        = list(string)
+}
+
+variable "bgp_settings" {
+  description = "BGP settings for the Local Network Gateway"
+  type = object({
+    asn                = optional(number, null) # ASN is optional and defaults to null
+    peering_address    = optional(string, null) # Peering address is optional and defaults to null
+    bgp_peering_weight = optional(number, null) # Peering weight is optional and defaults to null
+  })
+  default = {
+    asn                 = null
+    bgp_peering_address = null
+    peer_weight         = null
+  }
+}
+
+variable "tags" {
+  description = "A map of tags to assign to the resource"
+  type        = map(string)
+  default     = {}
+}
+
 variable "location" {
   type        = string
   description = "Azure region where the resource should be deployed."
