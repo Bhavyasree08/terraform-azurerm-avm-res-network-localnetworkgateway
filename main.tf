@@ -1,8 +1,28 @@
 # TODO: Replace this dummy resource azurerm_resource_group.TODO with your module resource
-resource "azurerm_resource_group" "TODO" {
-  location = var.location
-  name     = var.name # calling code must supply the name
-  tags     = var.tags
+# resource "azurerm_resource_group" "TODO" {
+#   location = var.location
+#   name     = var.name # calling code must supply the name
+#   tags     = var.tags
+# }
+
+resource "azurerm_local_network_gateway" "this" {
+  name                = var.name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  gateway_address     = var.gateway_address
+  address_space       = var.address_space
+
+  # Dynamic block for BGP settings
+  dynamic "bgp_settings" {
+    for_each = var.bgp_settings.asn != null ? [1] : []
+    content {
+      asn                 = bgp_settings.value.asn 
+      bgp_peering_address = bgp_settings.value.bgp_peering_address
+      peer_weight         = bgp_settings.value.peer_weight 
+    }
+  }
+
+  tags = var.tags
 }
 
 # required AVM resources interfaces
