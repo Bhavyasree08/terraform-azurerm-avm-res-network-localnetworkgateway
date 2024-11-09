@@ -47,6 +47,29 @@ resource "azurerm_resource_group" "this" {
   name     = module.naming.resource_group.name_unique
 }
 
+module "local_network_gateway" {
+  source = "../.."
+  #source             = "Azure/terraform-azurerm-avm-res-network-localnetworkgateway/azurerm"
+
+  # Resource group variables
+  location = azurerm_resource_group.this.location                         
+  name     = "example-resource-group"           
+  tags     = {}   
+
+  # Local network gateway variables
+  resource_group_name = azurerm_resource_group.this.name    
+  gateway_address     = "192.168.1.1"               
+  address_space       = ["192.168.0.0/24"]          
+
+  # BGP settings (optional)
+  bgp_settings = {
+    asn                 = 65010                      
+    bgp_peering_address = "192.168.2.1"               
+    peer_weight         = 0                          
+  }
+  enable_telemetry = var.enable_telemetry # see variables.tf
+}
+
 # This is the module call
 # Do not specify location here due to the randomization above.
 # Leaving location as `null` will cause the module to use the resource group location
