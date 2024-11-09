@@ -22,12 +22,6 @@ variable "bgp_settings" {
   }
 }
 
-variable "tags" {
-  description = "A map of tags to assign to the resource"
-  type        = map(string)
-  default     = {}
-}
-
 variable "location" {
   type        = string
   description = "Azure region where the resource should be deployed."
