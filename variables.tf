@@ -33,9 +33,9 @@ variable "address_space" {
 variable "bgp_settings" {
   description = "BGP settings for the Local Network Gateway"
   type = object({
-    asn                   = optional(number, null) # ASN is optional and defaults to null
-    bgp_peering_address   = optional(string, null) # Peering address is optional and defaults to null
-    peer_weight 	  = optional(number, null) # Peering weight is optional and defaults to null
+    asn                 = optional(number, null) # ASN is optional and defaults to null
+    bgp_peering_address = optional(string, null) # Peering address is optional and defaults to null
+    peer_weight         = optional(number, null) # Peering weight is optional and defaults to null
   })
   default = null
 }

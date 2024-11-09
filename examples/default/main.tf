@@ -52,16 +52,16 @@ module "local_network_gateway" {
   #source             = "Azure/terraform-azurerm-avm-res-network-localnetworkgateway/azurerm"
 
   # Resource group variables
-  location = azurerm_resource_group.this.location                         
-  name     = "example-local-network"           
-  tags     = {}   
+  location = azurerm_resource_group.this.location
+  name     = "example-local-network"
+  tags     = {}
 
   # Local network gateway variables
-  resource_group_name = azurerm_resource_group.this.name    
-  gateway_address     = "192.168.1.1"               
-  address_space       = ["192.168.0.0/24"]          
+  resource_group_name = azurerm_resource_group.this.name
+  gateway_address     = "192.168.1.1"
+  address_space       = ["192.168.0.0/24"]
 
   # BGP settings (optional)
-  bgp_settings = null
+  bgp_settings     = null
   enable_telemetry = var.enable_telemetry # see variables.tf
 }

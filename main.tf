@@ -5,7 +5,7 @@ resource "azurerm_local_network_gateway" "this" {
   gateway_address     = var.gateway_address
   address_space       = var.address_space
 
- dynamic "bgp_settings" {
+  dynamic "bgp_settings" {
     for_each = var.bgp_settings != null ? [var.bgp_settings] : []
     content {
       asn                 = lookup(bgp_settings.value, "asn", null)
@@ -22,7 +22,7 @@ resource "azurerm_management_lock" "this" {
 
   lock_level = var.lock.kind
   name       = coalesce(var.lock.name, "lock-${var.lock.kind}")
-  scope      = azurerm_local_network_gateway.this.id 
+  scope      = azurerm_local_network_gateway.this.id
   notes      = var.lock.kind == "CanNotDelete" ? "Cannot delete the resource or its child resources." : "Cannot delete or modify the resource or its child resources."
 }
 
