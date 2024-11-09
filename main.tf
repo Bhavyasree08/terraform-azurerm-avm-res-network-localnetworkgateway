@@ -5,12 +5,12 @@ resource "azurerm_local_network_gateway" "this" {
   gateway_address     = var.gateway_address
   address_space       = var.address_space
 
-  dynamic "bgp_settings" {
-    for_each = var.bgp_settings.asn != null ? [1] : []
+ dynamic "bgp_settings" {
+    for_each = var.bgp_settings != null ? [var.bgp_settings] : []
     content {
-      asn                 = bgp_settings.value.asn
-      bgp_peering_address = bgp_settings.value.bgp_peering_address
-      peer_weight         = bgp_settings.value.peer_weight
+      asn                 = lookup(bgp_settings.value, "asn", null)
+      bgp_peering_address = lookup(bgp_settings.value, "bgp_peering_address", null)
+      peer_weight         = lookup(bgp_settings.value, "peer_weight", null)
     }
   }
   tags = var.tags
