@@ -53,7 +53,7 @@ module "local_network_gateway" {
 
   # Resource group variables
   location = azurerm_resource_group.this.location                         
-  name     = "example-resource-group"           
+  name     = "example-local-network"           
   tags     = {}   
 
   # Local network gateway variables
